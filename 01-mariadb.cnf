@@ -1,0 +1,19 @@
+[mariadb]
+# 开启 binlog, 可以不加，默认开启
+log-bin=mysql-bin
+
+# 选择 ROW 模式
+binlog_format=row
+
+#server_id不要和canal的slaveId重复
+server-id=1
+
+general_log_file    = /var/log/mysql/mysql.log
+general_log         = 1
+
+# Error logging goes via stdout/stderr, which on systemd systems goes to
+# journald.
+# Enable this if you want to have error logging into a separate file
+log_error = /var/log/mysql/error.log
+
+max_allowed_packet = 10M

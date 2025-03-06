@@ -1,0 +1,35 @@
+# requirements.txt
+# 安装步骤：
+# 1. 先安装PyTorch MPS版本（单独执行）
+# pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
+
+# 核心依赖
+langchain-core
+langchain-ollama
+langchain-community
+chromadb
+langchain-chroma
+langchain-text-splitters
+
+# 中文文本处理
+sentence-transformers
+transformers
+beautifulsoup4
+html5lib
+
+# 数据操作
+pandas
+tqdm
+
+# Jupyter环境
+jupyter
+ipywidgets  # 用于资源监控组件
+
+# 辅助工具
+python-dotenv
+pysqlite3  # 增强ChromaDB的SQLite性能
+huggingface-hub
+
+# M1专用优化依赖
+psutil  # 系统监控
+matplotlib  # 可视化工具

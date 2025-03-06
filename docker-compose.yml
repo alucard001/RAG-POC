@@ -1,0 +1,49 @@
+networks:
+  app-tier:
+    driver: bridge
+services:
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    ports:
+      - 8080:8080
+    depends_on:
+      - mariadb
+    networks:
+      - app-tier
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    volumes:
+      - ./01-mariadb.cnf:/etc/mysql/mariadb.conf.d/01-mariadb.cnf
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=blog
+      - MARIADB_USER=blog
+      - MARIADB_PASSWORD=blog
+    networks:
+      - app-tier
+  jupyter:
+    image: jupyter/scipy-notebook:latest
+    container_name: rag_jupyter
+    ports:
+      - 8888:8888
+    volumes:
+      - ./:/home/jovyan
+    networks:
+      - app-tier
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes
+      - GRANT_ADMIN=yes
+  chroma:
+    image: ghcr.io/chroma-core/chroma:0.6.4.dev297
+    container_name: chroma
+    ports:
+      - 8000:8000
+    volumes:
+      - ./chroma-data:/data
+    networks:
+      - app-tier
